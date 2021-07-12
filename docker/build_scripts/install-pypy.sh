@@ -3,6 +3,11 @@
 # Stop at any error, show all commands
 set -exuo pipefail
 
+if [ "${POLICY}" == "musllinux_1_1" ]; then
+    echo "Skip PyPy build on musllinux"
+    exit
+fi
+
 # Get script directory
 MY_DIR=$(dirname "${BASH_SOURCE[0]}")
 

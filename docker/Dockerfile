@@ -26,7 +26,7 @@ COPY build_scripts/fixup-mirrors.sh /usr/local/sbin/fixup-mirrors
 
 # setup entrypoint, this will wrap commands with `linux32` with i686 images
 COPY build_scripts/install-entrypoint.sh build_scripts/update-system-packages.sh /build_scripts/
-RUN bash /build_scripts/install-entrypoint.sh && rm -rf /build_scripts
+RUN /build_scripts/install-entrypoint.sh && rm -rf /build_scripts
 COPY manylinux-entrypoint /usr/local/bin/manylinux-entrypoint
 ENTRYPOINT ["manylinux-entrypoint"]
 
@@ -63,8 +63,8 @@ COPY build_scripts/install-libxcrypt.sh /build_scripts/
 RUN export LIBXCRYPT_VERSION=4.4.17 && \
     export LIBXCRYPT_HASH=7665168d0409574a03f7b484682e68334764c29c21ca5df438955a381384ca07 && \
     export LIBXCRYPT_DOWNLOAD_URL=https://github.com/besser82/libxcrypt/archive && \
+    export ACLOCAL_PATH=/usr/share/aclocal/ && \
     manylinux-entrypoint /build_scripts/install-libxcrypt.sh
-
 
 FROM runtime_base AS build_base
 COPY build_scripts/install-build-packages.sh /build_scripts/

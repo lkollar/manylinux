@@ -21,6 +21,8 @@ elif [ "${AUDITWHEEL_POLICY}" == "manylinux_2_24" ]; then
 	apt-get upgrade -qq -y
 	apt-get clean -qq
 	rm -rf /var/lib/apt/lists/*
+elif [ "${AUDITWHEEL_POLICY}" == "musllinux_1_1" ]; then
+	apk upgrade
 else
 	echo "Unsupported policy: '${AUDITWHEEL_POLICY}'"
 	exit 1
@@ -30,7 +32,7 @@ fixup-mirrors
 # do we want to update locales ?
 LOCALE_ARCHIVE=/usr/lib/locale/locale-archive
 TIMESTAMP_FILE=${LOCALE_ARCHIVE}.ml.timestamp
-if [ ! -f ${TIMESTAMP_FILE} ] || [ ${LOCALE_ARCHIVE} -nt ${TIMESTAMP_FILE} ]; then
+if [ ! -f ${TIMESTAMP_FILE} ] || [ ${LOCALE_ARCHIVE} -nt ${TIMESTAMP_FILE} ] && [ "${AUDITWHEEL_POLICY}" != "musllinux_1_1" ]; then
 	# upgrading glibc-common can end with removal on en_US.UTF-8 locale
 	localedef -i en_US -f UTF-8 en_US.UTF-8
 

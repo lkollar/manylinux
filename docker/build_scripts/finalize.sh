@@ -44,7 +44,19 @@ source $TOOLS_PATH/bin/activate
 # Install default packages
 pip install -U --require-hashes -r $MY_DIR/requirements3.9.txt
 # Install certifi and auditwheel
+
+if [ "${POLICY}" == "musllinux_1_1" ]; then
+    # On Alpine cmake needs cmake to build. Install it from apk to
+    # build a newer version.
+    apk add --no-cache --virtual .cmake-deps cmake openssl-dev
+fi
+
 pip install -U --require-hashes -r $MY_DIR/requirements-tools.txt
+
+if [ "${POLICY}" == "musllinux_1_1" ]; then
+    # Remove the apk version
+    apk del .cmake-deps
+fi
 
 # Make auditwheel available in PATH
 ln -s $TOOLS_PATH/bin/auditwheel /usr/local/bin/auditwheel
