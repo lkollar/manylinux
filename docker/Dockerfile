@@ -155,7 +155,8 @@ COPY build_scripts/finalize.sh build_scripts/update-system-packages.sh \
                                build_scripts/requirements3.8.txt \
                                build_scripts/requirements3.9.txt \
                                build_scripts/requirements3.10.txt \
-                               build_scripts/requirements-tools.txt \
+                               build_scripts/requirements-tools-manylinux.txt \
+                               build_scripts/requirements-tools-musllinux.txt \
                                /build_scripts/
 RUN manylinux-entrypoint /build_scripts/finalize.sh && rm -rf /build_scripts
 
