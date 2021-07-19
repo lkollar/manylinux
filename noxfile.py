@@ -23,8 +23,16 @@ def tools(session):
     session.run(
         "pip-compile",
         "--generate-hashes",
-        "requirements-tools.in",
+        "requirements-tools-manylinux.in",
         "--upgrade",
         "--output-file",
-        f"docker/build_scripts/requirements-tools.txt",
+        f"docker/build_scripts/requirements-tools-manylinux.txt",
+    )
+    session.run(
+        "pip-compile",
+        "--generate-hashes",
+        "requirements-tools-musllinux.in",
+        "--upgrade",
+        "--output-file",
+        f"docker/build_scripts/requirements-tools-musllinux.txt",
     )
