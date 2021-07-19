@@ -4,7 +4,7 @@
 #   - install bash on Alpine as most scripts require it
 
 # Stop at any error, show all commands
-set -exuo
+set -exu
 
 # Set build environment variables
 MY_DIR=$(dirname "$0")
@@ -20,7 +20,7 @@ if [ "${AUDITWHEEL_PLAT}" = "manylinux2010_i686" ] || [ "${AUDITWHEEL_PLAT}" = "
 	# the following script takes care of cleaning-up some things
 	# and since it's also needed in the finalize step, everything's
 	# centralized in this script to avoid code duplication
-	LC_ALL=C "${MY_DIR}"/update-system-packages.sh
+	LC_ALL=C "${MY_DIR}/update-system-packages.sh"
 fi
 
 if [ "${AUDITWHEEL_POLICY}" = "musllinux_1_1" ]; then
