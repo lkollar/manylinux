@@ -8,7 +8,7 @@ set -exuo pipefail
 MY_DIR=$(dirname "${BASH_SOURCE[0]}")
 
 if [ "${POLICY}" == "musllinux_1_1" ]; then 
-    export NO_REGEX=yes
+    export NO_REGEX=NeedsStartEnd
 fi
 
 # Get build utilities
